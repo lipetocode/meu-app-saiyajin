@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saiyan Auto-Evolution</title>
+    <style>
+        :root { --dbz-orange: #ff9000; }
+        body {
+            background-color: #050505; color: white;
+            font-family: 'Arial Black', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0;
+        }
+        .card {
+            background: #111; padding: 30px; border-radius: 30px;
+            text-align: center; border: 4px solid var(--dbz-orange);
+            width: 90%; max-width: 360px; transition: all 0.5s ease;
+        }
+        .img-container {
+            width: 100%; height: 230px; background: #000;
+            border-radius: 20px; margin-bottom: 20px;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; border: 1px solid #333;
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .transformation-name { font-size: 1.6rem; margin: 15px 0; min-height: 45px; transition: color 0.3s; }
+        
+        .training-area {
+            background: #1a1a1a; padding: 20px; border-radius: 20px;
+            border: 2px solid #333; margin-top: 10px;
+        }
+        .progress-bar { height: 10px; background: #333; border-radius: 5px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--dbz-orange); width: 0%; transition: width 0.3s; }
+        
+        input[type="checkbox"] { width: 30px; height: 30px; cursor: pointer; accent-color: var(--dbz-orange); }
+        input[type="range"] { width: 100%; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+<div class="card" id="mainCard">
+    <div style="font-size: 0.9rem; margin-bottom: 5px; color: #888;">NÍVEL ATUAL</div>
+    <div id="levelDisplay" style="font-size: 2.5rem; font-weight: bold;">1</div>
+    
+    <div class="img-container">
+        <img src="" id="charImg">
+    </div>
+    
+    <div class="transformation-name" id="transName">Carregando...</div>
+    
+    <input type="range" id="levelSlider" min="1" max="1" value="1">
+
+    <div class="training-area">
+        <div id="progressText" style="font-size: 0.8rem; margin-bottom: 8px;">TREINOS: 0 / 12</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="trainCheck"> <b>CONCLUIR TREINO</b>
+        </label>
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById('levelSlider');
+    const nameDisplay = document.getElementById('transName');
+    const levelDisplay = document.getElementById('levelDisplay');
+    const charImg = document.getElementById('charImg');
+    const trainCheck = document.getElementById('trainCheck');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const card = document.getElementById('mainCard');
+
+    const dados = [
+        { nome: "Forma Base", cor: "#ffffff", img: "https://media.giphy.com/media/GRSnxyhJnPsaQ/giphy.gif" },
+        { nome: "Super Saiyajin", cor: "#ffde00", img: "https://media.giphy.com/media/ul1omBL2KdtO3MQvX8/giphy.gif" },
+        { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/oH0mXbYJ066Q/giphy.gif" },
+        { nome: "Super Saiyajin 3", cor: "#ffaa00", img: "https://media.giphy.com/media/qXJ2sAs20dn9u/giphy.gif" },
+        { nome: "Super Saiyajin Deus", cor: "#ff0044", img: "https://media.giphy.com/media/6fNnK7PpsX7Gw/giphy.gif" },
+        { nome: "Super Saiyajin Blue", cor: "#00ccff", img: "https://media.giphy.com/media/125amNw97qvSop/giphy.gif" },
+        { nome: "Super Saiyajin Rage", cor: "#ffcc00", img: "https://media.giphy.com/media/3bznFF75uonu35y67U/giphy.gif" },
+        { nome: "Instinto Superior", cor: "#e0e0e0", img: "https://media.giphy.com/media/SIuI7syOPv1sY/giphy.gif" },
+        { nome: "Ego Superior", cor: "#9d00ff", img: "https://media.giphy.com/media/6v309pSreYV9I86BqI/giphy.gif" },
+        { nome: "Gohan Beast", cor: "#ff3333", img: "https://media.giphy.com/media/7mHhNf2u2S7x10pM5Y/giphy.gif" }
+    ];
+
+    let totalTreinos = localStorage.getItem('dbz_total') ? parseInt(localStorage.getItem('dbz_total')) : 0;
+
+    function somEvolucao() {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.5);
+        g.gain.setValueAtTime(0.1, ctx.currentTime);
+        g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 0.5);
+    }
+
+    function atualizarTudo() {
+        const nivelCalculado = Math.min(Math.floor(totalTreinos / 12) + 1, 10);
+        const progressoNivel = totalTreinos % 12;
+
+        // Atualiza Slider e Imagem baseada no slider
+        slider.max = nivelCalculado;
+        slider.value = nivelCalculado; // Evolui automaticamente para o último liberado
+        
+        // Disparar efeito visual e sonoro se for um novo nível
+        const info = dados[nivelCalculado - 1];
+        levelDisplay.innerText = nivelCalculado;
+        nameDisplay.innerText = info.nome;
+        nameDisplay.style.color = info.cor;
+        charImg.src = info.img;
+        card.style.borderColor = info.cor;
+        card.style.boxShadow = `0 0 40px ${info.cor}44`;
+
+        // Barra de Progresso
+        const perc = (progressoNivel / 12) * 100;
+        progressFill.style.width = perc + "%";
+        progressText.innerText = `TREINOS: ${progressoNivel} / 12`;
+
+        localStorage.setItem('dbz_total', totalTreinos);
+    }
+
+    trainCheck.onclick = function() {
+        if(this.checked) {
+            totalTreinos++;
+            this.checked = false;
+            
+            // Se completou 12, toca som de explosão de Ki
+            if(totalTreinos % 12 === 0) {
+                somEvolucao();
+                if(navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 300]);
+                alert("KAAAA-MEEEE-HAAAA-MEEEE-HAAAA! VOCÊ EVOLUIU!");
+            } else {
+                if(navigator.vibrate) navigator.vibrate(50);
+            }
+            
+            atualizarTudo();
+        }
+    }
+
+    slider.oninput = function() {
+        const lvl = parseInt(this.value);
+        const info = dados[lvl - 1];
+        levelDisplay.innerText = lvl;
+        nameDisplay.innerText = info.nome;
+        nameDisplay.style.color = info.cor;
+        charImg.src = info.img;
+        card.style.borderColor = info.cor;
+    }
+
+    // Inicializar app
+    atualizarTudo();
+</script>
+
+</body>
+</html>
