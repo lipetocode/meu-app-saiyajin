@@ -4,156 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saiyan Destiny Tracker</title>
-    <style>
-        :root { --dbz-orange: #ff9000; --female-pink: #ff69b4; }
-        body {
-            background-color: #050505; color: white;
-            font-family: 'Arial Black', sans-serif;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh; margin: 0; overflow: hidden;
-        }
-        .screen { display: none; width: 100%; max-width: 360px; text-align: center; }
-        .active { display: block; }
-
-        /* Estilo Botões Iniciais */
-        .gender-btn {
-            width: 100%; padding: 20px; margin: 10px 0;
-            border-radius: 15px; border: none; font-size: 1.2rem;
-            cursor: pointer; font-family: 'Arial Black'; transition: 0.3s;
-        }
-        .male-btn { background: var(--dbz-orange); color: black; }
-        .female-btn { background: var(--female-pink); color: white; }
-
-        /* Card Principal */
-        .card {
-            background: #111; padding: 25px; border-radius: 30px;
-            border: 4px solid var(--current-color, #ff9000);
-            transition: all 0.5s ease;
-        }
-        .img-container {
-            width: 100%; height: 230px; background: #000;
-            border-radius: 20px; margin-bottom: 20px;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
-        }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .training-area {
-            background: #1a1a1a; padding: 15px; border-radius: 20px;
-            border: 1px solid #333; margin-top: 15px;
-        }
-        .progress-bar { height: 8px; background: #333; border-radius: 4px; margin: 10px 0; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--current-color); width: 0%; transition: width 0.3s; }
-        
-        input[type="checkbox"] { width: 25px; height: 25px; cursor: pointer; accent-color: var(--current-color); }
-        input[type="range"] { width: 100%; margin: 10px 0; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="selectionScreen" class="screen active">
-    <h1>ESCOLHA SEU CAMINHO</h1>
-    <button class="gender-btn male-btn" onclick="iniciar('homem')">SAIYAJIN (MASCULINO)</button>
-    <button class="gender-btn female-btn" onclick="iniciar('mulher')">SAIYAJIN (FEMININO)</button>
-</div>
-
-<div id="appScreen" class="screen">
-    <div id="levelDisplay" style="font-size: 2rem;">1</div>
-    <div class="card" id="mainCard">
-        <div class="img-container"><img src="" id="charImg"></div>
-        <div id="transName" style="font-size: 1.4rem; min-height: 40px;"></div>
-        <input type="range" id="levelSlider" min="1" max="1" value="1">
-        
-        <div class="training-area">
-            <div id="progressText" style="font-size: 0.7rem;">TREINOS: 0 / 12</div>
-            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <label style="display:flex; align-items:center; justify-content:center; gap:10px;">
-                <input type="checkbox" id="trainCheck"> <b>TREINAR</b>
-            </label>
-        </div>
+    <div id="selectionScreen" class="screen active">
+        <h1>ESCOLHA SEU CAMINHO</h1>
+        <button class="gender-btn male-btn" onclick="iniciar('homem')">SAIYAJIN (MASCULINO)</button>
+        <button class="gender-btn female-btn" onclick="iniciar('mulher')">SAIYAJIN (FEMININO)</button>
     </div>
-    <button onclick="resetar()" style="margin-top:15px; background:none; border:none; color:#555; cursor:pointer;">Reiniciar Personagem</button>
-</div>
 
-<script>
-    let generoAtual = '';
-    let totalTreinos = 0;
+    <div id="appScreen" class="screen">
+        <div id="levelDisplay" class="level-badge-top">1</div>
+        <div class="card" id="mainCard">
+            <div class="img-container"><img src="" id="charImg" alt="Transformação"></div>
+            <div id="transName" class="transformation-name"></div>
+            <input type="range" id="levelSlider" min="1" max="1; value="1">
+            
+            <div class="training-area">
+                <div id="progressText" class="progress-info">TREINOS: 0 / 12</div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <label class="check-label">
+                    <input type="checkbox" id="trainCheck"> <b>CONCLUIR TREINO</b>
+                </label>
+            </div>
+        </div>
+        <button onclick="resetar()" class="reset-btn">Reiniciar Personagem</button>
+    </div>
 
-    const dadosMasculinos = [
-        { nome: "Forma Base", cor: "#ff9000", img: "https://media.giphy.com/media/GRSnxyhJnPsaQ/giphy.gif" },
-        { nome: "Super Saiyajin", cor: "#ffde00", img: "https://media.giphy.com/media/ul1omBL2KdtO3MQvX8/giphy.gif" },
-        { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/oH0mXbYJ066Q/giphy.gif" },
-        { nome: "Super Saiyajin 3", cor: "#ffaa00", img: "https://media.giphy.com/media/qXJ2sAs20dn9u/giphy.gif" },
-        { nome: "Super Saiyajin Deus", cor: "#ff0044", img: "https://media.giphy.com/media/6fNnK7PpsX7Gw/giphy.gif" },
-        { nome: "Super Saiyajin Blue", cor: "#00ccff", img: "https://media.giphy.com/media/125amNw97qvSop/giphy.gif" },
-        { nome: "Instinto Superior", cor: "#e0e0e0", img: "https://media.giphy.com/media/SIuI7syOPv1sY/giphy.gif" },
-        { nome: "Ego Superior", cor: "#9d00ff", img: "https://media.giphy.com/media/6v309pSreYV9I86BqI/giphy.gif" },
-        { nome: "Gohan Beast", cor: "#ff3333", img: "https://media.giphy.com/media/7mHhNf2u2S7x10pM5Y/giphy.gif" }
-    ];
-
-    const dadosFemininos = [
-        { nome: "Forma Base", cor: "#ff69b4", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9Zp1W5L5Jm1XN3kQq/giphy.gif" },
-        { nome: "Super Saiyajin (Caulifla)", cor: "#ffde00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKu6WJXTZvbqKv6/giphy.gif" },
-        { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l4FsL6mX7V5K2y8zG/giphy.gif" },
-        { nome: "S. Saiyajin Berserker (Kale)", cor: "#32cd32", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l0Iy2WfPBvOiGpHY4/giphy.gif" },
-        { nome: "Super Saiyajin Lendário Controlado", cor: "#adff2f", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9Zp1W5L5Jm1XN3kQq/giphy.gif" },
-        { nome: "Fusão Kefla", cor: "#00ff7f", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" },
-        { nome: "Kefla Super Saiyajin 2", cor: "#7fff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l4FsL6mX7V5K2y8zG/giphy.gif" }
-    ];
-
-    function iniciar(sexo) {
-        generoAtual = sexo;
-        document.getElementById('selectionScreen').classList.remove('active');
-        document.getElementById('appScreen').classList.add('active');
-        totalTreinos = localStorage.getItem('dbz_total_' + sexo) ? parseInt(localStorage.getItem('dbz_total_' + sexo)) : 0;
-        atualizarTudo();
-    }
-
-    function atualizarTudo() {
-        const lista = generoAtual === 'homem' ? dadosMasculinos : dadosFemininos;
-        const nivelMax = Math.min(Math.floor(totalTreinos / 12) + 1, lista.length);
-        const progresso = totalTreinos % 12;
-
-        const slider = document.getElementById('levelSlider');
-        slider.max = nivelMax;
-        slider.value = nivelMax;
-
-        const info = lista[nivelMax - 1];
-        document.getElementById('levelDisplay').innerText = nivelMax;
-        document.getElementById('transName').innerText = info.nome;
-        document.getElementById('transName').style.color = info.cor;
-        document.getElementById('charImg').src = info.img;
-        document.body.style.setProperty('--current-color', info.cor);
-        
-        document.getElementById('progressFill').style.width = (progresso / 12 * 100) + "%";
-        document.getElementById('progressText').innerText = `TREINOS: ${progresso} / 12`;
-        
-        localStorage.setItem('dbz_total_' + generoAtual, totalTreinos);
-    }
-
-    document.getElementById('trainCheck').onclick = function() {
-        if(this.checked) {
-            totalTreinos++;
-            this.checked = false;
-            if(totalTreinos % 12 === 0) alert("EVOLUÇÃO COMPLETA!");
-            atualizarTudo();
-        }
-    }
-
-    document.getElementById('levelSlider').oninput = function() {
-        const lista = generoAtual === 'homem' ? dadosMasculinos : dadosFemininos;
-        const info = lista[this.value - 1];
-        document.getElementById('levelDisplay').innerText = this.value;
-        document.getElementById('transName').innerText = info.nome;
-        document.getElementById('charImg').src = info.img;
-    }
-
-    function resetar() {
-        if(confirm("Deseja reiniciar seu progresso?")) {
-            localStorage.removeItem('dbz_total_' + generoAtual);
-            location.reload();
-        }
-    }
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
