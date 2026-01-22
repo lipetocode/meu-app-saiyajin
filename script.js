@@ -33,6 +33,7 @@ function iniciar(sexo) {
 
 function atualizarTudo() {
     const lista = generoAtual === 'homem' ? dadosMasculinos : dadosFemininos;
+    // Cálculo baseado em 15 treinos
     const nivelMax = Math.min(Math.floor(totalTreinos / 15) + 1, lista.length);
     const progresso = totalTreinos % 15;
 
@@ -51,21 +52,45 @@ function atualizarTudo() {
     document.getElementById('progressText').innerText = `TREINOS: ${progresso} / 15`;
     
     localStorage.setItem('dbz_total_' + generoAtual, totalTreinos);
+
+    // --- NOVA LÓGICA: VERIFICAÇÃO DIÁRIA ---
+    const hoje = new Date().toDateString(); // Ex: "Thu Jan 22 2026"
+    const ultimoTreino = localStorage.getItem('dbz_data_' + generoAtual);
+    const checkbox = document.getElementById('trainCheck');
+    const labelTexto = checkbox.parentNode.querySelector('b');
+
+    if (ultimoTreino === hoje) {
+        // Se já treinou hoje: Bloqueia o checkbox
+        checkbox.checked = true;
+        checkbox.disabled = true;
+        labelTexto.innerText = "TREINO DE HOJE CONCLUÍDO (RECUPERANDO KI...)";
+        labelTexto.style.opacity = "0.5";
+    } else {
+        // Se é um novo dia: Libera o checkbox
+        checkbox.checked = false;
+        checkbox.disabled = false;
+        labelTexto.innerText = "CONCLUIR TREINO";
+        labelTexto.style.opacity = "1";
+    }
 }
 
 document.getElementById('trainCheck').onclick = function() {
     if(this.checked) {
+        // Salva a data de hoje para bloquear futuros cliques
+        const hoje = new Date().toDateString();
+        localStorage.setItem('dbz_data_' + generoAtual, hoje);
+
         totalTreinos++;
-        this.checked = false;
         
-        // Vibração ao treinar
+        // Vibração
         if (navigator.vibrate) navigator.vibrate(50);
         
         if(totalTreinos % 15 === 0) {
             alert("VOCÊ ATINGIU UM NOVO PATAMAR DE PODER! APROVEITE SUA NOVA TRANSFORMAÇÃO!");
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
-        atualizarTudo();
+        
+        atualizarTudo(); // Atualiza a tela e bloqueia o botão
     }
 }
 
@@ -80,6 +105,7 @@ document.getElementById('levelSlider').oninput = function() {
 function resetar() {
     if(confirm("Deseja apagar seu progresso e voltar ao início?")) {
         localStorage.removeItem('dbz_total_' + generoAtual);
+        localStorage.removeItem('dbz_data_' + generoAtual); // Remove também a data
         location.reload();
     }
 }
