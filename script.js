@@ -33,8 +33,8 @@ function iniciar(sexo) {
 
 function atualizarTudo() {
     const lista = generoAtual === 'homem' ? dadosMasculinos : dadosFemininos;
-    const nivelMax = Math.min(Math.floor(totalTreinos / 15) + 1, lista.length);
-    const progresso = totalTreinos % 15;
+    const nivelMax = Math.min(Math.floor(totalTreinos / 12) + 1, lista.length);
+    const progresso = totalTreinos % 12;
 
     const slider = document.getElementById('levelSlider');
     slider.max = nivelMax;
@@ -47,8 +47,8 @@ function atualizarTudo() {
     document.getElementById('charImg').src = info.img;
     document.documentElement.style.setProperty('--current-color', info.cor);
     
-    document.getElementById('progressFill').style.width = (progresso / 15 * 100) + "%";
-    document.getElementById('progressText').innerText = `TREINOS: ${progresso} / 15`;
+    document.getElementById('progressFill').style.width = (progresso / 12 * 100) + "%";
+    document.getElementById('progressText').innerText = `TREINOS: ${progresso} / 12`;
     
     localStorage.setItem('dbz_total_' + generoAtual, totalTreinos);
 }
@@ -61,8 +61,8 @@ document.getElementById('trainCheck').onclick = function() {
         // Vibração ao treinar
         if (navigator.vibrate) navigator.vibrate(50);
         
-        if(totalTreinos % 15 === 0) {
-            alert("VOCÊ ATINGIU UM NOVO NÍVEL DE PODER! APROVEITE SUA NOVA TRANSFORMAÇÃO!");
+        if(totalTreinos % 12 === 0) {
+            alert("VOCÊ ATINGIU UM NOVO PATAMAR DE PODER!");
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
         atualizarTudo();
