@@ -14,13 +14,12 @@ const dadosMasculinos = [
 ];
 
 const dadosFemininos = [
-    { nome: "Forma Base", cor: "#ff69b4", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9Zp1W5L5Jm1XN3kQq/giphy.gif" },
-    { nome: "Super Saiyajin (Caulifla)", cor: "#ffde00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKu6WJXTZvbqKv6/giphy.gif" },
-    { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l4FsL6mX7V5K2y8zG/giphy.gif" },
-    { nome: "S. Saiyajin Berserker (Kale)", cor: "#32cd32", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l0Iy2WfPBvOiGpHY4/giphy.gif" },
-    { nome: "Lendário Controlado", cor: "#adff2f", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/M9Zp1W5L5Jm1XN3kQq/giphy.gif" },
-    { nome: "Fusão Kefla", cor: "#00ff7f", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" },
-    { nome: "Kefla Super Saiyajin 2", cor: "#7fff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndmR4ZWZ6bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l4FsL6mX7V5K2y8zG/giphy.gif" }
+    { nome: "Forma Base", cor: "#ff69b4", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmxkdXoxaHF3YXRoc3V2N2F5cHltN2VjenViOXlnbTBvY252Z3Q5NCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/1pA5l2lZmXWnVvxzSa/giphy.gif" },
+    { nome: "Super Saiyajin (Caulifla)", cor: "#ffde00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmxkdXoxaHF3YXRoc3V2N2F5cHltN2VjenViOXlnbTBvY252Z3Q5NCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2wZoLID8DmIRf0WUkx/giphy.gif" },
+    { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGNvOWQxdjY4Y2N2aGV0dDd0aGlsazB6ZW9hNjM2YTZ6eXpvbmpjMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IpjTwaJFsSa2I/giphy.gif" },
+    { nome: "S. Saiyajin Berserker (Kale)", cor: "#32cd32", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGNvOWQxdjY4Y2N2aGV0dDd0aGlsazB6ZW9hNjM2YTZ6eXpvbmpjMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YX6h9ymaQb686KXoFb/giphy.gif" },
+    { nome: "Fusão Kefla", cor: "#00ff7f", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2YyNTZveWV5MGxkNWZjdGRvYm93MXI3OHM2b2Jua2V4NWp5MnM5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/E9P2MDyjcxwyyTO0Uc/giphy.gif" },
+    { nome: "Kefla Super Saiyajin 2", cor: "#7fff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjNlaGhvZnEzZ3g1ZW4wdGdxcGhsaHhva3JsemZocGxoc2xxdnpuciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/1o1uCy05L9yTOXfD80/giphy.gif" }
 ];
 
 function iniciar(sexo) {
