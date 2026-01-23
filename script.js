@@ -2,15 +2,15 @@ let generoAtual = '';
 let totalTreinos = 0;
 
 const dadosMasculinos = [
-    { nome: "Forma Base", cor: "#ffffff", img: "https://media.giphy.com/media/GRSnxyhJnPsaQ/giphy.gif" },
-    { nome: "Super Saiyajin", cor: "#ffde00", img: "https://media.giphy.com/media/ul1omBL2KdtO3MQvX8/giphy.gif" },
-    { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/oH0mXbYJ066Q/giphy.gif" },
-    { nome: "Super Saiyajin 3", cor: "#ffaa00", img: "https://media.giphy.com/media/qXJ2sAs20dn9u/giphy.gif" },
-    { nome: "Super Saiyajin Deus", cor: "#ff0044", img: "https://media.giphy.com/media/6fNnK7PpsX7Gw/giphy.gif" },
-    { nome: "Super Saiyajin Blue", cor: "#00ccff", img: "https://media.giphy.com/media/125amNw97qvSop/giphy.gif" },
-    { nome: "Instinto Superior", cor: "#e0e0e0", img: "https://media.giphy.com/media/SIuI7syOPv1sY/giphy.gif" },
-    { nome: "Ego Superior", cor: "#9d00ff", img: "https://media.giphy.com/media/6v309pSreYV9I86BqI/giphy.gif" },
-    { nome: "Gohan Beast", cor: "#ff3333", img: "https://media.giphy.com/media/7mHhNf2u2S7x10pM5Y/giphy.gif" }
+    { nome: "Forma Base", cor: "#ffffff", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDY0cjZ2d3A0NXczN28xc2tvanh5OHVzMWV5YWl0YmdzdnF3dWx0aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/vThGQEkz4f9eg/giphy.gif" },
+    { nome: "Super Saiyajin", cor: "#ffde00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODZuenRsdW05bGNlNHZ1NncwdXV1YTR0aWlzYzhzYnFuM2ZnNmVxZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/efdPsC5zF28Lu/giphy.gif" },
+    { nome: "Super Saiyajin 2", cor: "#ffff00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjZpNnNwdTFoZ2VoaGFoaGp1MmNtM2hmMHYzN2lqdXgwZTU4aWN3NiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2ITd4psR807cieh02J/giphy.gif" },
+    { nome: "Super Saiyajin 3", cor: "#ffaa00", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejZsdGQxeG5xYjVkN2YxcmVnd29kdGh3dGNpa3RqNG1zamR0dG9tcCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/mfgWMmIbTx0NHSqs4F/giphy.gif" },
+    { nome: "Super Saiyajin Deus", cor: "#ff0044", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnp4MXB2d21sNXgxaWRwb3p1dnljbzBydm9lc2oxMTFwc3FzM3puaCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/9hJDLEeSiPc6k/giphy.gif" },
+    { nome: "Super Saiyajin Blue", cor: "#00ccff", img: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d25qNDcyM2NpcWt5bzY3N2FzZXd0MWFvbHZncXJuOWw0ajNiaXJ5bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dmFXUZ5up1T896HP8B/giphy.gif" },
+    { nome: "Instinto Superior", cor: "#e0e0e0", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2ltYncwcXN3MWNjam93NGFxbXVlM2o2cTVyc3RlcWd5ZmhxNjVlNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/t7jzGb5JT0B2D7w771/giphy.gif" },
+    { nome: "Ego Superior", cor: "#9d00ff", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzV5Z2Z6ejc3dXl4ZDVxcDZ4YjJscWc5eDdtMDg1eXI0bnhiZm5wbCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/JWTrd0EVbByLuaBQUB/giphy.gif" },
+    { nome: "Gohan Beast", cor: "#ff3333", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmxha3UxODJqMmFwd2gwa2U2YzA1dnNzOTQ4dnRyeHpwMjRhbjdsNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/0CMwIq4vlyxgmmtqU6/giphy.gif" }
 ];
 
 const dadosFemininos = [
